@@ -5723,19 +5723,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Home\\.nuget\\packages\\": {}
+    "C:\\Users\\nmhun\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Backend\\SheduleManagement\\SheduleManagement.Data\\SheduleManagement.Data.csproj",
+      "projectUniqueName": "E:\\Projects\\khoaLuan_BE\\SheduleManagement.Data\\SheduleManagement.Data.csproj",
       "projectName": "SheduleManagement.Data",
-      "projectPath": "D:\\Backend\\SheduleManagement\\SheduleManagement.Data\\SheduleManagement.Data.csproj",
-      "packagesPath": "C:\\Users\\Home\\.nuget\\packages\\",
-      "outputPath": "D:\\Backend\\SheduleManagement\\SheduleManagement.Data\\obj\\",
+      "projectPath": "E:\\Projects\\khoaLuan_BE\\SheduleManagement.Data\\SheduleManagement.Data.csproj",
+      "packagesPath": "C:\\Users\\nmhun\\.nuget\\packages\\",
+      "outputPath": "E:\\Projects\\khoaLuan_BE\\SheduleManagement.Data\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Home\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\nmhun\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5797,7 +5797,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

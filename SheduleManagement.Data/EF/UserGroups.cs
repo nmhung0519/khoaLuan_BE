@@ -12,6 +12,7 @@ namespace SheduleManagement.Data.EF
         public int Id { get; set; }
         public int UserId { get; set; }
         public int GroupId { get; set; }
+        public int RoleId { get; set; }
         [ForeignKey("UserId")]
         public virtual Users Users { get; set; }
         [ForeignKey("GroupId")]

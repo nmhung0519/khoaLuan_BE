@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SheduleManagement.Data;
+using SheduleManagement.Data.Services;
 using SheduleManagement.Data.EF;
 using SheduleManagement.Models;
 using System;
