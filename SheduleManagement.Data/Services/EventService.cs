@@ -63,5 +63,27 @@ namespace SheduleManagement.Data.Services
                 return (ex.Message, 0);
             }
         }
+        public string Delete(int eventId)
+        {
+            try
+            {
+                var ev = _dbContext.Events.Find(eventId);
+                if (ev == null) return "Không tìm thấy sự kiện tương ứng.";
+                using (var transaction = _dbContext.Database.BeginTransaction())
+                {
+                    _dbContext.Events.Remove(ev);
+                    var eventUserService = new EventUserService(_dbContext);
+                    string msg = eventUserService.DeleteForEvent(eventId);
+                    if (msg.Length > 0) return msg;
+                    _dbContext.SaveChanges();
+                    transaction.Commit();
+                }
+                return String.Empty;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
     }
 }
