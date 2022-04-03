@@ -30,5 +30,21 @@ namespace SheduleManagement.Data.Services
                 return (ex.Message, 0);
             }
         }
+        public string Delete(int groupId)
+        {
+            try
+            {
+                var group = _dbContext.Groups.Find(groupId);
+                if (group == null)
+                    return "Không tìm thấy nhóm tương ứng";
+                _dbContext.Groups.Remove(group);
+                _dbContext.SaveChanges();
+                return String.Empty;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
     }
 }

@@ -39,11 +39,11 @@ namespace SheduleManagement.Data.Services
                 return (ex.Message, null);
             }
         }
-        public (string, Users) UpdateUser(int Id, Users users)
+        public (string, Users) UpdateUser(Users users)
         {
             try
             {
-                var useUpdate = _dbContext.Users.Find(Id);
+                var useUpdate = _dbContext.Users.Find(users.Id);
                 useUpdate.FirstName = users.FirstName;
                 useUpdate.LastName = users.LastName;
                 useUpdate.Phone = users.Phone;

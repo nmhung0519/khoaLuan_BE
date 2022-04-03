@@ -61,15 +61,15 @@ namespace SheduleManagement.Controllers
        
       
         // PUT api/<UserController>/5
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Users users)
+        [HttpPut()]
+        public IActionResult Put([FromBody] Users users)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(new ResponseViewModel(status: 400, "User input invalid"));
             }
             UserService userService = new UserService(_dbContext);
-            var (message, user) = userService.UpdateUser(id,users);
+            var (message, user) = userService.UpdateUser(users);
             if (user != null)
             {
                 return Ok(new ResponseViewModel(status: 200, message, user));

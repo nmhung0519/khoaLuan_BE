@@ -17,5 +17,7 @@ namespace SheduleManagement.Data
         public DbSet<Roles> Roles { get; set; }
         public DbSet<UserGroups> UserGroups { get; set; }
         public DbSet<UserRoles> UserRoles { get; set; }
+        public DbSet<Events> Events { get; set; }
+        public DbSet<EventUser> EventUsers { get; set; }
     }
 }

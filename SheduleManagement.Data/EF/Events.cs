@@ -18,9 +18,14 @@ namespace SheduleManagement.Data.EF
         [StringLength(255)]
         public string Description { get; set; }
         [Required]
-        public int UserCreate { get; set; }
+        public int CreatorId { get; set; }
+        public virtual Users Creator { get; set; }
         public int RecurrenceID { get; set; }
         [ForeignKey("RecurrenceID")]
         public virtual Recurrence Recurrence { get; set; }
+        public int GroupId { get; set; }
+        [ForeignKey("GroupId")]
+        public virtual Groups Group { get; set; }
+        public List<EventUser> EventUsers { get; set; }
     }
 }

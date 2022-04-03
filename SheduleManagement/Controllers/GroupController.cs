@@ -32,5 +32,19 @@ namespace SheduleManagement.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpDelete("Delete/{groupId}")]
+        public IActionResult Delete(int groupId)
+        {
+            try
+            {
+                string msg = (new GroupService(_dbContext)).Delete(groupId);
+                if (msg.Length > 0) BadRequest(msg);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

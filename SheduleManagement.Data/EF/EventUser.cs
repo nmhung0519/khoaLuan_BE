@@ -20,6 +20,5 @@ namespace SheduleManagement.Data.EF
         public virtual Events Events { get; set; }
         [ForeignKey("UserID")]
         public virtual Users Users { get; set; }
-
     }
 }
