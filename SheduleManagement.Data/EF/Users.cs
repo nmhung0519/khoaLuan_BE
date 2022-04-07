@@ -9,6 +9,7 @@ namespace SheduleManagement.Data.EF
     [Table("Users")]
     public class Users
     {
+        [Key]
         public int Id { get; set; }
         [Required]
         [StringLength(255)]
@@ -31,5 +32,6 @@ namespace SheduleManagement.Data.EF
         public string PassWord { get; set; }
         public DateTime CreateDate { get; set; }
         public string CreateBy { get; set; }
+        public virtual List<EventUser> EventUsers { get; set; }
     }
 }

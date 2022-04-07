@@ -17,7 +17,7 @@ namespace SheduleManagement.Data.EF
         public int CreatorId { get; set; }
         [ForeignKey("CreatorId")]
         public virtual Users Creator { get; set; }
-        public DateTime CreateDate { get; set; }
+        public DateTime CreatedTime { get; set; }
 
     }
 }

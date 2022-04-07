@@ -15,18 +15,31 @@ namespace SheduleManagement.Data.Services
             _dbContext = dbContext;
         }
 
-        public string UpdateForEvent(int eventId, List<int> participants)
+        public string UpdateForEvent(int eventId, int creatorId, List<int> participants)
         {
             try
             {
-                _dbContext.EventUsers.RemoveRange(_dbContext.EventUsers.Where(x => !participants.Contains(x.UserID)));
-                var existsParticipants = _dbContext.EventUsers.Where(x => !participants.Contains(x.UserID)).Select(x => x.UserID).ToList();
+                _dbContext.EventUsers.RemoveRange(_dbContext.EventUsers.Where(x => !participants.Contains(x.UserId) && x.EventId == eventId));
+                var existsParticipants = _dbContext.EventUsers.Where(x => !participants.Contains(x.UserId) && x.EventId == eventId).Select(x => x.UserId).ToList();
                 _dbContext.EventUsers.AddRange(participants.Where(x => !existsParticipants.Contains(x)).Select(x => new EventUser
                 {
-                    EventID = eventId,
-                    UserID = x,
-                    Status = (int)EventUserStatus.Invited
+                    EventId = eventId,
+                    UserId = x,
+                    Status = (int)EventUserStatus.Invited,
+                    LastUpdate = DateTime.Now
                 }));
+                var creator = _dbContext.EventUsers.FirstOrDefault(x => x.UserId == creatorId && x.EventId == eventId);
+                if (creator == null)
+                {
+                    _dbContext.EventUsers.Add(new EventUser
+                    {
+                        EventId = eventId,
+                        UserId = creatorId,
+                        Status = (int)EventUserStatus.Accepted,
+                        LastUpdate = DateTime.Now
+                    });
+                }
+                var a = _dbContext.EventUsers.ToList();
                 _dbContext.SaveChanges();
                 return String.Empty;
             }
@@ -39,7 +52,7 @@ namespace SheduleManagement.Data.Services
         {
             try
             {
-                _dbContext.EventUsers.RemoveRange(_dbContext.EventUsers.Where(x => x.EventID == eventId));
+                _dbContext.EventUsers.RemoveRange(_dbContext.EventUsers.Where(x => x.EventId == eventId));
                 _dbContext.SaveChanges();
                 return String.Empty;
             }
@@ -52,7 +65,7 @@ namespace SheduleManagement.Data.Services
         {
             try
             {
-                var eventUser = _dbContext.EventUsers.Where(x => x.UserID == userId && x.EventID == eventId).FirstOrDefault();
+                var eventUser = _dbContext.EventUsers.Where(x => x.UserId == userId && x.EventId == eventId).FirstOrDefault();
                 if (eventUser == null) return "Không tìm tháy lời mời tương ứng.";
                 _dbContext.EventUsers.Remove(eventUser);
                 _dbContext.SaveChanges();

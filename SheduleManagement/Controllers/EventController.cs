@@ -17,6 +17,37 @@ namespace SheduleManagement.Controllers
         {
             _dbContext = dbContext;
         }
+        [HttpGet("{eventId}")]
+        public IActionResult Index(int eventId)
+        {
+            try
+            {
+                var eventService = new EventService(_dbContext);
+                var (msg, ev) = eventService.Get(eventId);
+                if (msg.Length > 0) return BadRequest(msg);
+                return Ok(new
+                {
+                    Id = ev.Id,
+                    Title = ev.Title,
+                    Description = ev.Description,
+                    StartTime = ev.StartTime,
+                    EndTime = ev.StartTime,
+                    RecurrenceType = ev.RecurrenceType,
+                    GroupId = ev.GroupId,
+                    Participants = ev.EventUsers.Select(x => new
+                    {
+                        Id = x.UserId,
+                        UserName = x.Users.UserName,
+                        FirstName = x.Users.FirstName,
+                        Lastname = x.Users.LastName
+                    }).ToList()
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpGet("GetByMonth")]
         public IActionResult GetByMonth(int userId, int groupId, int month, int year)
         {
@@ -33,7 +64,7 @@ namespace SheduleManagement.Controllers
                     EndTime = x.EndTime,
                     Description = x.Description,
                     CreatorId = x.CreatorId,
-                    RecurrenceID = x.RecurrenceID,
+                    RecurrenceType = x.RecurrenceType,
                     GropuId = x.GroupId
                 }).ToList());
             }
@@ -43,12 +74,12 @@ namespace SheduleManagement.Controllers
             }
         }
         [HttpPost("InsertOrUpdate")]
-        public IActionResult InsertOrUpdate(EventInfos model)
+        public IActionResult InsertOrUpdate([FromBody]EventInfos model)
         {
             try
             {
                 var eventService = new EventService(_dbContext);
-                var (msg, eventId) = eventService.Update(model.Id, model.Title, model.Description, model.StartTime, model.EndTime, model.RecurrenceType, model.Participants.Select(x => x.Id).ToList());
+                var (msg, eventId) = eventService.Update(model.id, model.title, model.description, model.startTime, model.endTime, model.recurrenceType, model.participants.Select(x => x.Id).ToList(), model.creatorId);
                 if (msg.Length > 0) return BadRequest(msg);
                 return Ok(eventId);
             }

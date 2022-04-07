@@ -25,14 +25,35 @@ namespace SheduleManagement.Controllers
         }
         
         [HttpGet("GetForUser/{userId}")]
-        public IActionResult GetForUser([FromQuery]int userId)
+        public IActionResult GetForUser(int userId)
         {
             try
             {
                 var userGroupService = new UserGroupService(_dbContext);
-                var (msg, groups) = userGroupService.GetForUser(userId);
+                var (msg, userGroups) = userGroupService.GetForUser(userId);
                 if (msg.Length > 0) return BadRequest(msg);
-                return Ok(groups.Select(x => x.Id).ToList());
+                return Ok(userGroups.Select(x => new
+                {
+                    UserId = x.UserId,
+                    GroupId = x.GroupId,
+                    User = new
+                    {
+                        Id = x.UserId,
+                        UserName = x.Users.UserName,
+                        FirstName = x.Users.FirstName,
+                        LastName = x.Users.LastName
+                    },
+                    Group = new
+                    {
+                        Id = x.GroupId,
+                        Name = x.Groups.GroupName
+                    },
+                    Role = new
+                    {
+                        Id = x.Role.Id,
+                        Name = x.Role.Name
+                    }
+                }).ToList());
             }
             catch (Exception ex)
             {

@@ -11,6 +11,7 @@ using SheduleManagement.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace SheduleManagement
@@ -50,7 +51,6 @@ namespace SheduleManagement
                     }
                 });
             });
-
         }
 
 
@@ -61,9 +61,8 @@ namespace SheduleManagement
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseRouting();
-
+            app.UseHsts();
             app.UseAuthorization();
             app.UseSwagger();
             app.UseSwaggerUI(s =>

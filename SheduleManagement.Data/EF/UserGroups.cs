@@ -9,13 +9,16 @@ namespace SheduleManagement.Data.EF
     [Table("UserGroups")]
     public class UserGroups 
     {
-        public int Id { get; set; }
+        [Key]
         public int UserId { get; set; }
+        [Key]
         public int GroupId { get; set; }
         public int RoleId { get; set; }
         [ForeignKey("UserId")]
         public virtual Users Users { get; set; }
         [ForeignKey("GroupId")]
         public virtual Groups Groups { get; set; }
+        [ForeignKey("RoleId")]
+        public virtual Roles Role { get; set; }
     }
 }

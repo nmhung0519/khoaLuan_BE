@@ -22,6 +22,28 @@ namespace SheduleManagement.Controllers
         {
             _dbContext = dbContext;
         }
+        [HttpGet("/Search")]
+        public IActionResult Search(string prefix, string exclusions)
+        {
+            try
+            {
+                var userService = new UserService(_dbContext);
+                var (msg, users) = userService.Search(prefix, exclusions.Split(",").Select(x => Convert.ToInt32(x)).ToList());
+                if (msg.Length > 0) return BadRequest(msg);
+                return Ok(users.Select(x => new
+                {
+                    Id = x.Id,
+                    Username = x.UserName,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Phone = x.Phone
+                }).ToList());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         // GET: api/<UserController>
         [HttpPost("Login")]
         public IActionResult LogIn(LoginInfos loginInfos)
@@ -29,15 +51,12 @@ namespace SheduleManagement.Controllers
            
             if (!ModelState.IsValid)
             {
-                return BadRequest(new ResponseViewModel(status:400,"Login infomation invalid"));
+                return BadRequest("Login infomation invalid");
             }
             UserService userService = new UserService(_dbContext);
-            var (status, message) = userService.CheckLogin(loginInfos.Username, loginInfos.Password);
-            if (status == 200)
-            {
-                return Ok(new ResponseViewModel(status: status, message));
-            }
-            return BadRequest(new ResponseViewModel(status: status, message));
+            var (msg, userId) = userService.CheckLogin(loginInfos.Username, loginInfos.Password);
+            if (msg.Length == 0) return Ok(userId);
+            return BadRequest(msg);
             
         }
         [HttpPost("AddUser")]

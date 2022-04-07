@@ -6,8 +6,10 @@ using System.Text;
 
 namespace SheduleManagement.Data.EF
 {
+    [Table("Events")]
     public class Events
     {
+        [Key]
         public int Id { get; set; }
         [StringLength(255)]
         public string Title { get; set; }
@@ -20,12 +22,11 @@ namespace SheduleManagement.Data.EF
         [Required]
         public int CreatorId { get; set; }
         public virtual Users Creator { get; set; }
-        public int RecurrenceID { get; set; }
-        [ForeignKey("RecurrenceID")]
-        public virtual Recurrence Recurrence { get; set; }
+        public int RecurrenceType { get; set; }
         public int GroupId { get; set; }
         [ForeignKey("GroupId")]
         public virtual Groups Group { get; set; }
         public List<EventUser> EventUsers { get; set; }
+        public DateTime CreatedTime { get; set; }
     }
 }

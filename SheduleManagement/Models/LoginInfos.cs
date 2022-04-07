@@ -8,11 +8,7 @@ namespace SheduleManagement.Models
 {
     public class LoginInfos
     {
-        [Required]
-        [MaxLength(100)]
         public string Username { get; set; }
-        [Required]
-        [MaxLength(100)]
         public string Password { get; set; }
     }
 }

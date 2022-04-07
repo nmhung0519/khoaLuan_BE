@@ -14,14 +14,26 @@ namespace SheduleManagement.Data.Services
             _dbContext = dbContext;
         }
 
-        public (string, List<Groups>) GetForUser(int userId)
+        public (string, List<UserGroups>) GetForUser(int userId)
         {
             try
             {
-                return (String.Empty, _dbContext.UserGroups
+                var userGroups = _dbContext.UserGroups
                     .Where(x => x.UserId == userId)
-                    .Select(x => x.Groups)
-                    .ToList());
+                    .ToList();
+                foreach (var userGroup in userGroups)
+                {
+                    _dbContext.Entry(userGroup)
+                        .Reference(x => x.Users)
+                        .Load();
+                    _dbContext.Entry(userGroup)
+                        .Reference(x => x.Groups)
+                        .Load();
+                    _dbContext.Entry(userGroup)
+                        .Reference(x => x.Role)
+                        .Load();
+                }
+                return (String.Empty, userGroups);
             }
             catch (Exception ex)
             {

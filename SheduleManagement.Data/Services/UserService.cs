@@ -13,14 +13,14 @@ namespace SheduleManagement.Data.Services
         {
             _dbContext = dbContext;
         }
-        public (int, string) CheckLogin(string userName, string Password)
+        public (string, int) CheckLogin(string userName, string Password)
         {
             var user = _dbContext.Users.FirstOrDefault(x => x.UserName == userName && x.PassWord == Password);
             if (user == null)
             {
-                return (400, "Username or password incorrect");
+                return ("Tài khoản hoặc mật khẩu không chính xác.", 0);
             }
-            return (200, "Login succesfull");
+            return (String.Empty, user.Id);
         }
         public (string, Users) AddUser(Users users)
         {
@@ -74,6 +74,27 @@ namespace SheduleManagement.Data.Services
                 //return ex.Message;
                 //Ghi log lỗi lại.
                 return (userDel == null ? "Không tìm thấy thông tin người dùng tương ứng." : $"Xóa người dùng {userDel} không thành công.");
+            }
+        }
+        public (string, List<Users>) Search(string prefix, List<int> exclusions)
+        {
+            prefix = prefix.ToLower();
+            try
+            {
+                return (String.Empty, _dbContext.Users
+                    .Where(x => (!exclusions.Contains(x.Id)) && (x.UserName.ToLower() == prefix
+                    || x.UserName.ToLower().Contains(prefix)
+                    || x.Phone == prefix
+                    || x.Phone.Contains(prefix)
+                    || (x.LastName.ToLower() + " " + x.FirstName.ToLower()) == prefix
+                    || (x.LastName.ToLower() + " " + x.FirstName.ToLower()).Contains(prefix)))
+                    .OrderBy(x => new { A = x.UserName.ToLower() == prefix, B = x.Phone == prefix, C = (x.LastName.ToLower() + " " + x.FirstName.ToLower()) == prefix })
+                    .Take(3)
+                    .ToList());
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, null);
             }
         }
     }

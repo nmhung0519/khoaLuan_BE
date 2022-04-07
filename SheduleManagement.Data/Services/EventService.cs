@@ -15,6 +15,27 @@ namespace SheduleManagement.Data.Services
         {
             _dbContext = dbContext;
         }
+        public (string, Events) Get(int eventId)
+        {
+            try
+            {
+                var ev = _dbContext.Events.Find(eventId);
+                if (ev == null) return ("Không tìm thấy sự kiện tương ứng", null);
+                _dbContext.Entry(ev)
+                    .Collection(x => x.EventUsers)
+                    .Load();
+                if (ev.EventUsers != null)
+                    foreach (var eventUser in ev.EventUsers)
+                        _dbContext.Entry(eventUser)
+                            .Reference(x => x.Users)
+                            .Load();
+                return (String.Empty, ev);
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, null);
+            }
+        }
         public (string, List<Events>) GetByMonth(int userId, int groupId, int month, int year)
         {
             try
@@ -23,9 +44,10 @@ namespace SheduleManagement.Data.Services
                     return ("Thời gian không hợp lệ", null);
                 var events = _dbContext.EventUsers
                     .Where(x => (groupId == 0 || x.Events.GroupId == groupId) 
-                        && (userId == 0 || x.UserID == userId) 
-                        && x.Events.StartTime.Date < new DateTime(year, month, 1).AddMonths(1) 
-                        && x.Events.EndTime.Date >= new DateTime(year, month, 1))
+                        && (userId == 0 || x.UserId == userId) 
+                        //&& x.Events.StartTime.Date < new DateTime(year, month, 1).AddMonths(1) 
+                        //&& x.Events.EndTime.Date >= new DateTime(year, month, 1)
+                        )
                     .Select(x => x.Events)
                     .ToList();
                 return (String.Empty, events);
@@ -35,7 +57,7 @@ namespace SheduleManagement.Data.Services
                 return (ex.Message, null);
             }
         }
-        public (string, int) Update(int eventId, string title, string description, DateTime startTime, DateTime endTime, int recurrenceType, List<int> participants)
+        public (string, int) Update(int eventId, string title, string description, DateTime startTime, DateTime endTime, int recurrenceType, List<int> participants, int creatorId)
         {
             try
             {
@@ -47,11 +69,12 @@ namespace SheduleManagement.Data.Services
                     ev.Description = description;
                     ev.StartTime = startTime;
                     ev.EndTime = endTime;
-                    ev.RecurrenceID = recurrenceType;
+                    ev.CreatorId = creatorId;
+                    ev.RecurrenceType = recurrenceType;
                     if (eventId == 0) _dbContext.Events.Add(ev);
                     _dbContext.SaveChanges();
                     var eventUserService = new EventUserService(_dbContext);
-                    string msg = eventUserService.UpdateForEvent(eventId, participants);
+                    string msg = eventUserService.UpdateForEvent(ev.Id, creatorId, participants);
                     if (msg.Length > 0) return (msg, 0);
                     transaction.Commit();
                     return (String.Empty, ev.Id);
