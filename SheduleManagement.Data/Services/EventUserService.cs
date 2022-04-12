@@ -15,7 +15,7 @@ namespace SheduleManagement.Data.Services
             _dbContext = dbContext;
         }
 
-        public string UpdateForEvent(int eventId, int creatorId, List<int> participants)
+        public string UpdateForEvent(int eventId, List<int> participants)
         {
             try
             {
@@ -28,17 +28,6 @@ namespace SheduleManagement.Data.Services
                     Status = (int)EventUserStatus.Invited,
                     LastUpdate = DateTime.Now
                 }));
-                var creator = _dbContext.EventUsers.FirstOrDefault(x => x.UserId == creatorId && x.EventId == eventId);
-                if (creator == null)
-                {
-                    _dbContext.EventUsers.Add(new EventUser
-                    {
-                        EventId = eventId,
-                        UserId = creatorId,
-                        Status = (int)EventUserStatus.Accepted,
-                        LastUpdate = DateTime.Now
-                    });
-                }
                 var a = _dbContext.EventUsers.ToList();
                 _dbContext.SaveChanges();
                 return String.Empty;

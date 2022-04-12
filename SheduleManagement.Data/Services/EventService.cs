@@ -42,13 +42,13 @@ namespace SheduleManagement.Data.Services
             {
                 if (month <= 0 || month > 12 || year < 1900 || year > 9999)
                     return ("Thời gian không hợp lệ", null);
-                var events = _dbContext.EventUsers
-                    .Where(x => (groupId == 0 || x.Events.GroupId == groupId) 
-                        && (userId == 0 || x.UserId == userId) 
-                        //&& x.Events.StartTime.Date < new DateTime(year, month, 1).AddMonths(1) 
-                        //&& x.Events.EndTime.Date >= new DateTime(year, month, 1)
-                        )
-                    .Select(x => x.Events)
+                var events = _dbContext.Events
+                    .Where(x => x.StartTime < new DateTime(year, month, 1).AddMonths(1)
+                    && x.EndTime >= new DateTime(year, month, 1)
+                    && (groupId == 0 || x.GroupId == groupId)
+                    && (userId == 0 || x.CreatorId == userId || x.EventUsers.Where(x => x.UserId == userId).FirstOrDefault() != null)
+                    )
+                    .OrderBy(x => x.StartTime)
                     .ToList();
                 return (String.Empty, events);
             }
@@ -57,7 +57,7 @@ namespace SheduleManagement.Data.Services
                 return (ex.Message, null);
             }
         }
-        public (string, int) Update(int eventId, string title, string description, DateTime startTime, DateTime endTime, int recurrenceType, List<int> participants, int creatorId)
+        public (string, int) Update(int eventId, string title, string description, DateTime startTime, DateTime endTime, int recurrenceType, int groupId, List<int> participants, int creatorId)
         {
             try
             {
@@ -71,10 +71,11 @@ namespace SheduleManagement.Data.Services
                     ev.EndTime = endTime;
                     ev.CreatorId = creatorId;
                     ev.RecurrenceType = recurrenceType;
+                    ev.GroupId = groupId;
                     if (eventId == 0) _dbContext.Events.Add(ev);
                     _dbContext.SaveChanges();
                     var eventUserService = new EventUserService(_dbContext);
-                    string msg = eventUserService.UpdateForEvent(ev.Id, creatorId, participants);
+                    string msg = eventUserService.UpdateForEvent(ev.Id, participants);
                     if (msg.Length > 0) return (msg, 0);
                     transaction.Commit();
                     return (String.Empty, ev.Id);

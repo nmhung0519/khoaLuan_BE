@@ -79,7 +79,7 @@ namespace SheduleManagement.Controllers
             try
             {
                 var eventService = new EventService(_dbContext);
-                var (msg, eventId) = eventService.Update(model.id, model.title, model.description, model.startTime, model.endTime, model.recurrenceType, model.participants.Select(x => x.Id).ToList(), model.creatorId);
+                var (msg, eventId) = eventService.Update(model.id, model.title, model.description, model.startTime, model.endTime, model.recurrenceType, model.groupId, model.participants.Select(x => x.Id).ToList(), model.creator.Id);
                 if (msg.Length > 0) return BadRequest(msg);
                 return Ok(eventId);
             }
