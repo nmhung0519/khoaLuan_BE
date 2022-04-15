@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SheduleManagement.Data;
 using SheduleManagement.Data.Services;
+using SheduleManagement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +18,13 @@ namespace SheduleManagement.Controllers
         {
             _dbContext = dbContext;
         }
-        [HttpPost("Add")]
-        public IActionResult Add(string name)
+        [HttpPost("Update")]
+        public IActionResult Update(GroupInfos data)
         {
             try
             {
                 var groupService = new GroupService(_dbContext);
-                var (msg, groupId) = groupService.Add(name);
+                var (msg, groupId) = groupService.Add(data.Creator.Id, data.Name);
                 if (msg.Length == 0) return Ok(groupId);
                 return BadRequest(msg);
             }

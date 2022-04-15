@@ -46,13 +46,11 @@ namespace SheduleManagement.Data.Services
             {
                 if (_dbContext.Groups.Find(groupId) == null)
                     return "Không tồn tại nhóm tương ứng.";
-                if (_dbContext.UserGroups
-                    .Join(members,
-                        x => new { UserId = x.UserId, GroupId = x.GroupId },
-                        y => new { UserId = y.Key, GroupId = groupId },
-                        (x, y) => 1)
-                    .Count() > 0)
-                    return "Đã tồn tại thành viên trong nhóm.";
+                foreach (var item in members)
+                {
+                    if (_dbContext.UserGroups.Where(x => x.UserId == item.Key && x.GroupId == groupId).Count() > 0)
+                        return "Đã tồn tại thành viên trong nhóm.";
+                }
                 _dbContext.UserGroups.AddRange(members.Select(x => new UserGroups
                 {
                     UserId = x.Key,
