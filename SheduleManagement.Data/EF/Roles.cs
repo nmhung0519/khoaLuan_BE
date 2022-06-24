@@ -14,5 +14,9 @@ namespace SheduleManagement.Data.EF
         [Required]
         [StringLength(255)]
         public string Name { get; set; }
+        public bool CanView { get; set; }
+        public bool CanEdit { get; set; }
+        public bool CanUpdate { get; set; }
+        public virtual List<UserGroups> UserGroups { get; set; }
     }
 }

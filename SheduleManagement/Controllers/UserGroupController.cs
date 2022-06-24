@@ -99,11 +99,27 @@ namespace SheduleManagement.Controllers
                 var (msg, users) = userGroupService.GetAllMember(groupId);
                 if (msg.Length == 0) return Ok(users.Select(x => new
                 {
-                    UserId = x.UserId,
-                    UserName = x.Users.UserName,
-                    FirstName = x.Users.FirstName,
-                    LastName = x.Users.LastName,
-                    Role = x.RoleId
+                    User = new
+                    {
+                        Id = x.UserId,
+                        UserName = x.Users.UserName,
+                        FirstName = x.Users.FirstName,
+                        LastName = x.Users.LastName,
+                        Role = x.RoleId
+                    },
+                    Group = new
+                    {
+                        Id = x.GroupId,
+                        Name = x.Groups.GroupName
+                    },
+                    Role = new
+                    {
+                        Id = x.Role.Id,
+                        Name = x.Role.Name,
+                        CanView = x.Role.CanView,
+                        CanEdit = x.Role.CanEdit,
+                        CanUpdate = x.Role.CanUpdate
+                    }
                 }));
                 return BadRequest(msg);
             }

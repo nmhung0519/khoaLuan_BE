@@ -88,9 +88,17 @@ namespace SheduleManagement.Data.Services
                 if (group == null) return ("Không tồn tại nhóm tương ứng.", null);
                 var userGroups = _dbContext.UserGroups.Where(x => x.GroupId == groupId).ToList();
                 foreach (var userGroup in userGroups)
+                {
                     _dbContext.Entry(userGroup)
                         .Reference(x => x.Users)
                         .Load();
+                    _dbContext.Entry(userGroup)
+                        .Reference(x => x.Groups)
+                        .Load();
+                    _dbContext.Entry(userGroup)
+                        .Reference(x => x.Role)
+                        .Load();
+                }
                 return (String.Empty, userGroups);
             }
             catch (Exception ex)
