@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "55lY7UYNm8CKeP1f7A53ZJnaSM84Jz3Ys++rISHSo0BS+IvWnBixeGVcLUyGE4KxVfcH17QE7zbXGXl6rLsJXg==",
+  "dgSpecHash": "VsRTFifCpTt3svtoL+g7daerHcBmUi4BioB5/jyeZimgfebts/nOs4CqRjO9KlP7ckXZMQdlJ7D2KsKrbf3WlQ==",
   "success": true,
   "projectFilePath": "E:\\Projects\\khoaLuan_BE\\SheduleManagement\\SheduleManagement.csproj",
   "expectedPackageFiles": [
@@ -15,6 +15,7 @@
     "C:\\Users\\nmhun\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\3.1.23\\microsoft.entityframeworkcore.relational.3.1.23.nupkg.sha512",
     "C:\\Users\\nmhun\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\3.1.23\\microsoft.entityframeworkcore.sqlserver.3.1.23.nupkg.sha512",
     "C:\\Users\\nmhun\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\3.1.23\\microsoft.entityframeworkcore.tools.3.1.23.nupkg.sha512",
+    "C:\\Users\\nmhun\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\nmhun\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\3.1.23\\microsoft.extensions.caching.abstractions.3.1.23.nupkg.sha512",
     "C:\\Users\\nmhun\\.nuget\\packages\\microsoft.extensions.caching.memory\\3.1.23\\microsoft.extensions.caching.memory.3.1.23.nupkg.sha512",
     "C:\\Users\\nmhun\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.23\\microsoft.extensions.configuration.3.1.23.nupkg.sha512",
@@ -42,6 +43,7 @@
     "C:\\Users\\nmhun\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\nmhun\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\nmhun\\.nuget\\packages\\runtime.win-x86.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+    "C:\\Users\\nmhun\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
     "C:\\Users\\nmhun\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
     "C:\\Users\\nmhun\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
     "C:\\Users\\nmhun\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512",

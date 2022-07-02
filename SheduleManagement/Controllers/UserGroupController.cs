@@ -19,10 +19,6 @@ namespace SheduleManagement.Controllers
         {
             _dbContext = dbContext;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
         
         [HttpGet("GetForUser/{userId}")]
         public IActionResult GetForUser(int userId)
