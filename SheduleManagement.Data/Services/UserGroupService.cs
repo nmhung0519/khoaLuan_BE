@@ -14,12 +14,12 @@ namespace SheduleManagement.Data.Services
             _dbContext = dbContext;
         }
 
-        public (string, List<UserGroups>) GetForUser(int userId)
+        public (string, List<UserGroups>) GetForUser(int userId, bool? isAccepted = null)
         {
             try
             {
                 var userGroups = _dbContext.UserGroups
-                    .Where(x => x.UserId == userId)
+                    .Where(x => x.UserId == userId && (isAccepted == null || x.IsAccepted == isAccepted))
                     .ToList();
                 foreach (var userGroup in userGroups)
                 {
@@ -104,6 +104,21 @@ namespace SheduleManagement.Data.Services
             catch (Exception ex)
             {
                 return (ex.Message, null);
+            }
+        }
+        public string AcceptInvitation(int userId, int groupId)
+        {
+            try
+            {
+                var userGroup = _dbContext.UserGroups.FirstOrDefault(x => x.UserId == userId && x.GroupId == groupId && x.IsAccepted == false);
+                if (userGroup == null) return "Không tìm thấy lời mời tham gia nhóm tương ứng.";
+                userGroup.IsAccepted = true;
+                _dbContext.SaveChanges();
+                return String.Empty;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
             }
         }
     }

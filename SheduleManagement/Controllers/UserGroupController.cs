@@ -48,7 +48,8 @@ namespace SheduleManagement.Controllers
                     {
                         Id = x.Role.Id,
                         Name = x.Role.Name
-                    }
+                    },
+                    IsAccepted = x.IsAccepted
                 }).ToList());
             }
             catch (Exception ex)
@@ -101,7 +102,7 @@ namespace SheduleManagement.Controllers
                         UserName = x.Users.UserName,
                         FirstName = x.Users.FirstName,
                         LastName = x.Users.LastName,
-                        Role = x.RoleId
+                        Role = x.RoleId,
                     },
                     Group = new
                     {
@@ -115,9 +116,62 @@ namespace SheduleManagement.Controllers
                         CanView = x.Role.CanView,
                         CanEdit = x.Role.CanEdit,
                         CanUpdate = x.Role.CanUpdate
-                    }
+                    },
+                    IsAccepted = x.IsAccepted
                 }));
                 return BadRequest(msg);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("GetInvitation/{userId}")]
+        public IActionResult GetInvitation(int userId)
+        {
+            try
+            {
+                var userGroupService = new UserGroupService(_dbContext);
+                var (msg, userGroups) = userGroupService.GetForUser(userId, false);
+                if (msg.Length > 0) return BadRequest(msg);
+                return Ok(userGroups.Select(x => new
+                {
+                    UserId = x.UserId,
+                    GroupId = x.GroupId,
+                    User = new
+                    {
+                        Id = x.UserId,
+                        UserName = x.Users.UserName,
+                        FirstName = x.Users.FirstName,
+                        LastName = x.Users.LastName
+                    },
+                    Group = new
+                    {
+                        Id = x.GroupId,
+                        Name = x.Groups.GroupName
+                    },
+                    Role = new
+                    {
+                        Id = x.Role.Id,
+                        Name = x.Role.Name
+                    },
+                    IsAccepted = x.IsAccepted
+                }).ToList());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("AcceptInvitation")]
+        public IActionResult AcceptInvitation([FromBody]KeyValuePair<int, int> model)
+        {
+            try
+            {
+                var userGroupService = new UserGroupService(_dbContext);
+                string msg = userGroupService.AcceptInvitation(model.Key, model.Value);
+                if (msg.Length > 0) return BadRequest(msg);
+                return Ok();
             }
             catch (Exception ex)
             {
