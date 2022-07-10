@@ -88,7 +88,10 @@ namespace SheduleManagement.Data.Services
                     || x.Phone.Contains(prefix)
                     || (x.LastName.ToLower() + " " + x.FirstName.ToLower()) == prefix
                     || (x.LastName.ToLower() + " " + x.FirstName.ToLower()).Contains(prefix)))
-                    .OrderBy(x => new { A = x.UserName.ToLower() == prefix, B = x.Phone == prefix, C = (x.LastName.ToLower() + " " + x.FirstName.ToLower()) == prefix })
+                    .OrderBy(x => x.UserName.ToLower() == prefix)
+                    .ThenBy(x => x.Phone == prefix)
+                    .ThenBy(x => (x.LastName.ToLower() + " " + x.FirstName.ToLower()) == prefix)
+                    .ThenBy(x => x.UserName)
                     .Take(3)
                     .ToList());
             }

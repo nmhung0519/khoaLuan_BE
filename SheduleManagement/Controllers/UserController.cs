@@ -28,7 +28,7 @@ namespace SheduleManagement.Controllers
             try
             {
                 var userService = new UserService(_dbContext);
-                var (msg, users) = userService.Search(prefix, exclusions.Split(",").Select(x => Convert.ToInt32(x)).ToList());
+                var (msg, users) = userService.Search(prefix, (exclusions ?? "").Split(",").Where(x => x.Length != 0).Select(x => Convert.ToInt32(x)).ToList());
                 if (msg.Length > 0) return BadRequest(msg);
                 return Ok(users.Select(x => new
                 {
