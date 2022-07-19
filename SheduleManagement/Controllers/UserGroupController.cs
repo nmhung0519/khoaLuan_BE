@@ -164,12 +164,12 @@ namespace SheduleManagement.Controllers
             }
         }
         [HttpPost("AcceptInvitation")]
-        public IActionResult AcceptInvitation([FromBody]KeyValuePair<int, int> model)
+        public IActionResult AcceptInvitation([FromBody]ReplyInvitationGroupModel model)
         {
             try
             {
                 var userGroupService = new UserGroupService(_dbContext);
-                string msg = userGroupService.AcceptInvitation(model.Key, model.Value);
+                string msg = userGroupService.AcceptInvitation(model.UserId, model.GroupId, model.Accept);
                 if (msg.Length > 0) return BadRequest(msg);
                 return Ok();
             }

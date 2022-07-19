@@ -106,13 +106,14 @@ namespace SheduleManagement.Data.Services
                 return (ex.Message, null);
             }
         }
-        public string AcceptInvitation(int userId, int groupId)
+        public string AcceptInvitation(int userId, int groupId, bool accept)
         {
             try
             {
                 var userGroup = _dbContext.UserGroups.FirstOrDefault(x => x.UserId == userId && x.GroupId == groupId && x.IsAccepted == false);
                 if (userGroup == null) return "Không tìm thấy lời mời tham gia nhóm tương ứng.";
-                userGroup.IsAccepted = true;
+                if (accept) userGroup.IsAccepted = true;
+                else _dbContext.UserGroups.Remove(userGroup);
                 _dbContext.SaveChanges();
                 return String.Empty;
             }
