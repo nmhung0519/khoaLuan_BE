@@ -62,6 +62,7 @@ namespace SheduleManagement
                 app.UseDeveloperExceptionPage();
             }
             app.UseRouting();
+            app.UseCors();
             app.UseHsts();
             app.UseAuthorization();
             app.UseSwagger();

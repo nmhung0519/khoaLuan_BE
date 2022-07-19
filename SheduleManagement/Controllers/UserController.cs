@@ -22,7 +22,7 @@ namespace SheduleManagement.Controllers
         {
             _dbContext = dbContext;
         }
-        [HttpGet("/Search")]
+        [HttpGet("Search")]
         public IActionResult Search(string prefix, string exclusions)
         {
             try
