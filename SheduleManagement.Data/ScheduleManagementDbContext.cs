@@ -20,7 +20,6 @@ namespace SheduleManagement.Data
             modelBuilder.Entity<EventUser>().HasOne(x => x.Users).WithMany(x => x.EventUsers).HasForeignKey(x => x.UserId);
             modelBuilder.Entity<UserGroups>().HasKey(x => new { x.GroupId, x.UserId });
             modelBuilder.Entity<UserGroups>().HasOne(x => x.Role).WithMany(x => x.UserGroups).HasForeignKey(x => x.RoleId);
-            modelBuilder.Entity<UserGroups>().Property(x => x.IsAccepted).ValueGeneratedOnAdd();
             modelBuilder.Entity<Events>().Property(x => x.CreatedTime).ValueGeneratedOnAdd();
             modelBuilder.Entity<Groups>().Property(x => x.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Groups>().Property(x => x.CreatedTime).ValueGeneratedOnAdd();

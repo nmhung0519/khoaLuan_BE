@@ -55,7 +55,8 @@ namespace SheduleManagement.Data.Services
                 {
                     UserId = x.Key,
                     GroupId = groupId,
-                    RoleId = x.Value
+                    RoleId = x.Value,
+                    IsAccepted = false
                 }));
                 _dbContext.SaveChanges();
                 return String.Empty;
