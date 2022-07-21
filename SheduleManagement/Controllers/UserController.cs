@@ -57,7 +57,16 @@ namespace SheduleManagement.Controllers
             var (msg, userId) = userService.CheckLogin(loginInfos.Username, loginInfos.Password);
             if (msg.Length == 0) return Ok(userId);
             return BadRequest(msg);
-            
+        }
+        [HttpPost("ChangePassword")]
+        public IActionResult ChangePassword(ChangePasswordModel model)
+        {
+            UserService userService = new UserService(_dbContext);
+            var (msg, userId) = userService.CheckLogin(model.UserName, model.OldPassword);
+            if (msg.Length > 0) return BadRequest(msg);
+            msg = userService.ChangePassword(userId, model.NewPassword);
+            if (msg.Length == 0) return Ok(userId);
+            else return BadRequest(msg);
         }
         [HttpPost("AddUser")]
         public IActionResult AddUser(Users users)
@@ -76,10 +85,6 @@ namespace SheduleManagement.Controllers
             return BadRequest(new ResponseViewModel(status: 400, message));
 
         }
-        // GET api/<UserController>/5
-       
-      
-        // PUT api/<UserController>/5
         [HttpPut()]
         public IActionResult Put([FromBody] Users users)
         {
@@ -95,8 +100,6 @@ namespace SheduleManagement.Controllers
             }
             return BadRequest(new ResponseViewModel(status: 400, message));
         }
-            
-        // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

@@ -100,5 +100,20 @@ namespace SheduleManagement.Data.Services
                 return (ex.Message, null);
             }
         }
+        public string ChangePassword(int userId, string password)
+        {
+            try
+            {
+                var user = _dbContext.Users.FirstOrDefault(x => x.Id == userId);
+                if (user == null) return "Không tìm thấy thông tin tài khoản tương ứng.";
+                user.PassWord = password;
+                _dbContext.SaveChanges();
+                return String.Empty;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
     }
 }

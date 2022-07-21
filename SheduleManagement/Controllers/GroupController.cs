@@ -47,5 +47,19 @@ namespace SheduleManagement.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("ChangeName")]
+        public IActionResult ChangeName(ChangeNameModel model)
+        {
+            try
+            {
+                string msg = (new GroupService(_dbContext)).ChangeName(model.Id, model.Name);
+                if (msg.Length == 0) return Ok(model.Id);
+                return BadRequest(msg);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
