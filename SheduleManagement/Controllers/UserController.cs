@@ -107,5 +107,27 @@ namespace SheduleManagement.Controllers
             string result = userService.DeleteUser(id);
             return Ok(result);
         }
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            try
+            {
+                var userService = new UserService(_dbContext);
+                var (msg, users) = userService.GetAll();
+                if (msg.Length > 0) return BadRequest(msg);
+                return Ok(users.Select(x => new
+                {
+                    Id = x.Id,
+                    Username = x.UserName,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Phone = x.Phone
+                }).ToList());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

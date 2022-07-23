@@ -115,5 +115,16 @@ namespace SheduleManagement.Data.Services
                 return ex.Message;
             }
         }
+        public (string, List<Users>) GetAll()
+        {
+            try
+            {
+                return (String.Empty, _dbContext.Users.ToList());
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, null);
+            }
+        }
     }
 }
