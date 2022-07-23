@@ -22,17 +22,26 @@ namespace SheduleManagement.Data.Services
             }
             return (String.Empty, user.Id);
         }
-        public (string, Users) AddUser(Users users)
+        public (string, Users) AddUser(string username, string firstname, string lastname, string password, string phone, string address)
         {
             try
             {
-                if (_dbContext.Users.Any(x=>x.UserName ==  users.UserName))
+                if (_dbContext.Users.Any(x => x.UserName ==  username))
                 {
                     return ("User name exist", null);
                 }
-                _dbContext.Add(users);
+                _dbContext.Users.Add(new Users
+                {
+                    UserName = username,
+                    FirstName = firstname,
+                    LastName = lastname,
+                    PassWord = password,
+                    Phone = phone,
+                    Address = address,
+                    CreateDate = DateTime.Now
+                });
                 _dbContext.SaveChanges();
-                return (string.Empty, users);
+                return (string.Empty, _dbContext.Users.Where(x => x.UserName == username).FirstOrDefault());
             }
             catch (Exception ex)
             {

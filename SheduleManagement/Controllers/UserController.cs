@@ -69,7 +69,7 @@ namespace SheduleManagement.Controllers
             else return BadRequest(msg);
         }
         [HttpPost("AddUser")]
-        public IActionResult AddUser(Users users)
+        public IActionResult AddUser(AddUserModel model)
         {
 
             if (!ModelState.IsValid)
@@ -77,10 +77,10 @@ namespace SheduleManagement.Controllers
                 return BadRequest(new ResponseViewModel(status: 400, "User input invalid"));
             }
             UserService userService = new UserService(_dbContext);
-            var (message, user) = userService.AddUser(users);
+            var (message, user) = userService.AddUser(model.UserName, model.FirstName, model.LastName, model.Password, model.Phone, model.Address);
             if (user != null)
             {
-                return Ok(new ResponseViewModel(status: 200, message, user));
+                return Ok(new ResponseViewModel(status: 200, message, user.Id));
             }
             return BadRequest(new ResponseViewModel(status: 400, message));
 
