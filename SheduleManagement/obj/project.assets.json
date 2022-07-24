@@ -5931,11 +5931,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Projects\\khoaLuan_BE\\SheduleManagement\\SheduleManagement.csproj",
+      "projectUniqueName": "G:\\S\\BkavRepo\\khoaLuan_BE\\SheduleManagement\\SheduleManagement.csproj",
       "projectName": "SheduleManagement",
-      "projectPath": "E:\\Projects\\khoaLuan_BE\\SheduleManagement\\SheduleManagement.csproj",
+      "projectPath": "G:\\S\\BkavRepo\\khoaLuan_BE\\SheduleManagement\\SheduleManagement.csproj",
       "packagesPath": "C:\\Users\\nmhun\\.nuget\\packages\\",
-      "outputPath": "E:\\Projects\\khoaLuan_BE\\SheduleManagement\\obj\\",
+      "outputPath": "G:\\S\\BkavRepo\\khoaLuan_BE\\SheduleManagement\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\nmhun\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5952,8 +5952,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "E:\\Projects\\khoaLuan_BE\\SheduleManagement.Data\\SheduleManagement.Data.csproj": {
-              "projectPath": "E:\\Projects\\khoaLuan_BE\\SheduleManagement.Data\\SheduleManagement.Data.csproj"
+            "G:\\S\\BkavRepo\\khoaLuan_BE\\SheduleManagement.Data\\SheduleManagement.Data.csproj": {
+              "projectPath": "G:\\S\\BkavRepo\\khoaLuan_BE\\SheduleManagement.Data\\SheduleManagement.Data.csproj"
             }
           }
         }

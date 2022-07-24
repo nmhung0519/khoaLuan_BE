@@ -36,10 +36,10 @@ namespace SheduleManagement.Controllers
                     GroupId = ev.GroupId,
                     Participants = ev.EventUsers.Select(x => new
                     {
-                        Id = x.UserId,
-                        UserName = x.Users.UserName,
-                        FirstName = x.Users.FirstName,
-                        Lastname = x.Users.LastName
+                        id = x.UserId,
+                        username = x.Users.UserName,
+                        firstname = x.Users.FirstName,
+                        lastname = x.Users.LastName
                     }).ToList()
                 });
             }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using SheduleManagement.Data;
 using SheduleManagement.Data.EF;
 using SheduleManagement.Data.Services;
@@ -172,6 +173,32 @@ namespace SheduleManagement.Controllers
                 string msg = userGroupService.AcceptInvitation(model.UserId, model.GroupId, model.Accept);
                 if (msg.Length > 0) return BadRequest(msg);
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("Search")]
+        public IActionResult Search(string prefix, string exclusions)
+        {
+            try
+            {
+                var userGroupService = new UserGroupService(_dbContext);
+                var (msg, result) = userGroupService.Search(prefix, (exclusions ?? "").Split(",").Where(x => x.Length != 0).Select(x => Convert.ToInt32(x)).ToList());
+                if (msg.Length > 0) return BadRequest(msg);
+                return Ok(result.Select(x => new
+                {
+                    shortname = x.shortname,
+                    fullname = x.fullname,
+                    type = x.type,
+                    users = x.users.Select(y => new
+                    {
+                        id = y.id,
+                        username = y.username,
+                        fullname = y.fullname
+                    }).ToList()
+                }).ToList());
             }
             catch (Exception ex)
             {

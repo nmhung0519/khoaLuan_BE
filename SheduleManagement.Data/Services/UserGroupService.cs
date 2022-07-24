@@ -123,5 +123,88 @@ namespace SheduleManagement.Data.Services
                 return ex.Message;
             }
         }
+        public (string, List<ObjectResultSearch>) Search(string prefix, List<int> exclusions)
+        {
+            prefix = prefix.ToLower();
+            try
+            {
+                var a = _dbContext.Users
+                    .Where(x => (!exclusions.Contains(x.Id)) && (x.UserName.ToLower() == prefix
+                    || x.UserName.ToLower().Contains(prefix)
+                    || x.Phone == prefix
+                    || x.Phone.Contains(prefix)
+                    || (x.LastName.ToLower() + " " + x.FirstName.ToLower()) == prefix
+                    || (x.LastName.ToLower() + " " + x.FirstName.ToLower()).Contains(prefix)))
+                    .Select(x => new ObjectResultSearch
+                    {
+                        shortname = x.UserName,
+                        fullname = (x.LastName + " " + x.FirstName),
+                        type = 1,
+                        users = new List<ObjectUser> { new ObjectUser
+                        {
+                            id = x.Id,
+                            username = x.UserName,
+                            fullname = (x.LastName + " " + x.FirstName)
+                        } }
+                    })
+                    .OrderBy(x => x.shortname.ToLower() == prefix)
+                    .ThenBy(x => x.fullname == prefix)
+                    .ThenBy(x => x.shortname)
+                    .Take(3)
+                    .ToList();
+                var b = _dbContext.Groups.Where(x => x.GroupName.ToLower().Contains(prefix)).Select(x => x.Id).ToList();
+                var b2 = _dbContext.UserGroups.Where(x => b.Contains(x.GroupId)).ToList();
+                foreach (var item in b2)
+                {
+                    _dbContext.Entry(item)
+                        .Reference(x => x.Users)
+                        .Load();
+                    _dbContext.Entry(item)
+                        .Reference(x => x.Groups)
+                        .Load();
+                }
+                var b3 = b2.GroupBy(x => x.GroupId).ToList()
+                        .Select(x => new ObjectResultSearch
+                        {
+                            shortname = x.First().Groups.GroupName,
+                            fullname = x.First().Groups.GroupName,
+                            type = 2,
+                            users = x.Select(y => new ObjectUser
+                            {
+                                id = y.Users.Id,
+                                username = y.Users.UserName,
+                                fullname = (y.Users.LastName + " " + y.Users.FirstName)
+                            }).ToList()
+                        })
+                        .OrderBy(x => x.shortname.ToLower() == prefix)
+                    .ThenBy(x => x.fullname == prefix)
+                    .ThenBy(x => x.shortname)
+                    .Take(3)
+                    .ToList();
+                var c = a.Union(b3).OrderBy(x => x.shortname.ToLower() == prefix)
+                    .ThenBy(x => x.fullname == prefix)
+                    .ThenBy(x => x.shortname)
+                    .Take(3)
+                    .ToList();
+                return (String.Empty, c);
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message, null);
+            }
+        }
+    }
+    public class ObjectResultSearch
+    {
+        public string shortname;
+        public string fullname;
+        public int type;
+        public List<ObjectUser> users;
+    }
+    public class ObjectUser
+    {
+        public int id;
+        public string username;
+        public string fullname;
     }
 }

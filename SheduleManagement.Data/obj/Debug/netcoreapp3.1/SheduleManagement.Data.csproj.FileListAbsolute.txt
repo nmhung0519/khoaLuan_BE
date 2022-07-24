@@ -24,3 +24,16 @@ E:\Projects\khoaLuan_BE\SheduleManagement.Data\obj\Debug\netcoreapp3.1\SheduleMa
 E:\Projects\khoaLuan_BE\SheduleManagement.Data\obj\Debug\netcoreapp3.1\SheduleManagement.Data.dll
 E:\Projects\khoaLuan_BE\SheduleManagement.Data\obj\Debug\netcoreapp3.1\SheduleManagement.Data.pdb
 E:\Projects\khoaLuan_BE\SheduleManagement.Data\obj\Debug\netcoreapp3.1\SheduleManagement.Data.genruntimeconfig.cache
+G:\S\BkavRepo\khoaLuan_BE\SheduleManagement.Data\bin\Debug\netcoreapp3.1\SheduleManagement.Data.deps.json
+G:\S\BkavRepo\khoaLuan_BE\SheduleManagement.Data\bin\Debug\netcoreapp3.1\SheduleManagement.Data.runtimeconfig.json
+G:\S\BkavRepo\khoaLuan_BE\SheduleManagement.Data\bin\Debug\netcoreapp3.1\SheduleManagement.Data.runtimeconfig.dev.json
+G:\S\BkavRepo\khoaLuan_BE\SheduleManagement.Data\bin\Debug\netcoreapp3.1\SheduleManagement.Data.dll
+G:\S\BkavRepo\khoaLuan_BE\SheduleManagement.Data\bin\Debug\netcoreapp3.1\SheduleManagement.Data.pdb
+G:\S\BkavRepo\khoaLuan_BE\SheduleManagement.Data\obj\Debug\netcoreapp3.1\SheduleManagement.Data.csproj.AssemblyReference.cache
+G:\S\BkavRepo\khoaLuan_BE\SheduleManagement.Data\obj\Debug\netcoreapp3.1\SheduleManagement.Data.GeneratedMSBuildEditorConfig.editorconfig
+G:\S\BkavRepo\khoaLuan_BE\SheduleManagement.Data\obj\Debug\netcoreapp3.1\SheduleManagement.Data.AssemblyInfoInputs.cache
+G:\S\BkavRepo\khoaLuan_BE\SheduleManagement.Data\obj\Debug\netcoreapp3.1\SheduleManagement.Data.AssemblyInfo.cs
+G:\S\BkavRepo\khoaLuan_BE\SheduleManagement.Data\obj\Debug\netcoreapp3.1\SheduleManagement.Data.csproj.CoreCompileInputs.cache
+G:\S\BkavRepo\khoaLuan_BE\SheduleManagement.Data\obj\Debug\netcoreapp3.1\SheduleManagement.Data.dll
+G:\S\BkavRepo\khoaLuan_BE\SheduleManagement.Data\obj\Debug\netcoreapp3.1\SheduleManagement.Data.pdb
+G:\S\BkavRepo\khoaLuan_BE\SheduleManagement.Data\obj\Debug\netcoreapp3.1\SheduleManagement.Data.genruntimeconfig.cache
