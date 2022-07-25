@@ -33,6 +33,7 @@ namespace SheduleManagement.Data.Services
                         .Reference(x => x.Role)
                         .Load();
                 }
+                userGroups = userGroups.Where(x => x.Users != null && x.Groups != null && x.Role != null).ToList();
                 return (String.Empty, userGroups);
             }
             catch (Exception ex)
