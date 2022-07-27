@@ -39,7 +39,8 @@ namespace SheduleManagement.Controllers
                         id = x.UserId,
                         username = x.Users.UserName,
                         firstname = x.Users.FirstName,
-                        lastname = x.Users.LastName
+                        lastname = x.Users.LastName,
+                        status = x.Status
                     }).ToList()
                 });
             }
@@ -113,6 +114,21 @@ namespace SheduleManagement.Controllers
                 if (msg.Length > 0) return BadRequest(msg);
 
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ReplyInvitation")]
+        public IActionResult ReplyInvitation(ReplyInvitationModel model)
+        {
+            try
+            {
+                var eventUserService = new EventUserService(_dbContext);
+                string msg = eventUserService.ReplyInvitation(model.UserId, model.EventId, model.IsAccepted);
+                if (string.IsNullOrEmpty(msg)) return Ok();
+                else return BadRequest(msg);
             }
             catch (Exception ex)
             {

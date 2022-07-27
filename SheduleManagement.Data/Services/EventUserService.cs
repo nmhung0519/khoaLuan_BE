@@ -28,6 +28,7 @@ namespace SheduleManagement.Data.Services
                     Status = (int)EventUserStatus.Invited,
                     LastUpdate = DateTime.Now
                 }));
+                _dbContext.EventUsers.Where(x => x.EventId == eventId && x.Status == (int)EventUserStatus.Declined).ToList().ForEach(x => { x.Status = (int)EventUserStatus.Invited; });
                 var a = _dbContext.EventUsers.ToList();
                 _dbContext.SaveChanges();
                 return String.Empty;
@@ -57,6 +58,22 @@ namespace SheduleManagement.Data.Services
                 var eventUser = _dbContext.EventUsers.Where(x => x.UserId == userId && x.EventId == eventId).FirstOrDefault();
                 if (eventUser == null) return "Không tìm tháy lời mời tương ứng.";
                 _dbContext.EventUsers.Remove(eventUser);
+                _dbContext.SaveChanges();
+                return String.Empty;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+        public string ReplyInvitation(int userId, int eventId, bool isAccepted)
+        {
+            try
+            {
+                var eventUser = _dbContext.EventUsers.Where(x => x.UserId == userId && x.EventId == eventId && x.Status == 1).FirstOrDefault();
+                if (eventUser == null) return "Không tìm thấy lời mời sự kiện tương ứng";
+
+                eventUser.Status = isAccepted ? 2 : 3;
                 _dbContext.SaveChanges();
                 return String.Empty;
             }

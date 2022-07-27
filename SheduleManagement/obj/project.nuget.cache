@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Gbkjn/OskgHGvpJIAq2vXCFkF/MSJU8VFNcA6XCj9EfBMEk9yfhlNpyCwl7GruxyQrcIT3xqTFI3Gslimg0qQg==",
+  "dgSpecHash": "AQ3Ln0q5mZoIJ89t/vbzzAKJdN4XOYldA+UBMDm+xbK2o1K2OgP7Em7dRWdNBXvKp+1KKlY1nUvIJvLGHoWXZA==",
   "success": true,
-  "projectFilePath": "G:\\S\\BkavRepo\\khoaLuan_BE\\SheduleManagement\\SheduleManagement.csproj",
+  "projectFilePath": "S:\\Projects\\khoaLuan_BE\\SheduleManagement\\SheduleManagement.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nmhun\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\nmhun\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.1\\microsoft.bcl.hashcode.1.1.1.nupkg.sha512",
