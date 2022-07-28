@@ -64,9 +64,14 @@ namespace SheduleManagement.Controllers
                     StartTime = x.StartTime,
                     EndTime = x.EndTime,
                     Description = x.Description,
-                    CreatorId = x.CreatorId,
+                    Creator = new
+                    {
+                        Id = x.Creator.Id,
+                        UserName = x.Creator.UserName
+                    },
                     RecurrenceType = x.RecurrenceType,
-                    GropuId = x.GroupId
+                    GropuId = x.GroupId,
+                    Status = x.EventUsers == null ? 2 : x.EventUsers[0].Status
                 }).ToList());
             }
             catch (Exception ex)

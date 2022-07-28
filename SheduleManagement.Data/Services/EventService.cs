@@ -50,6 +50,13 @@ namespace SheduleManagement.Data.Services
                     )
                     .OrderBy(x => x.StartTime)
                     .ToList();
+                events.ForEach(x => _dbContext.Entry(x).Reference(y => y.Creator).Load());
+                events = events.Where(x => x.Creator != null).ToList();
+                events.ForEach(x => _dbContext.Entry(x).Collection(y => y.EventUsers).Load());
+                events.ForEach(x =>
+                {
+                    x.EventUsers = (x.EventUsers == null || x.EventUsers.Count == 0 || userId <= 0) ? null : x.EventUsers.Where(y => y.UserId == userId).ToList();
+                });
                 return (String.Empty, events);
             }
             catch (Exception ex)
