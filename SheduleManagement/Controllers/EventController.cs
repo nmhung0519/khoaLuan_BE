@@ -71,7 +71,7 @@ namespace SheduleManagement.Controllers
                     },
                     RecurrenceType = x.RecurrenceType,
                     GropuId = x.GroupId,
-                    Status = x.EventUsers == null ? 2 : x.EventUsers[0].Status
+                    Status = (x.EventUsers == null || x.EventUsers.Count == 0) ? 2 : x.EventUsers[0].Status
                 }).ToList());
             }
             catch (Exception ex)
