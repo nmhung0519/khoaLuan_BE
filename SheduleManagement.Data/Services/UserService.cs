@@ -58,8 +58,7 @@ namespace SheduleManagement.Data.Services
                 useUpdate.Phone = users.Phone;
                 useUpdate.Address = users.Address;
                 useUpdate.Department = users.Department;
-                useUpdate.Position = users.Position;              
-                useUpdate.PassWord = users.PassWord;
+                useUpdate.Position = users.Position;
                 _dbContext.SaveChanges();
                 return (string.Empty, users);
             }
