@@ -20,7 +20,7 @@ namespace SheduleManagement.Data.Services
             try
             {
                 _dbContext.EventUsers.RemoveRange(_dbContext.EventUsers.Where(x => !participants.Contains(x.UserId) && x.EventId == eventId));
-                var existsParticipants = _dbContext.EventUsers.Where(x => !participants.Contains(x.UserId) && x.EventId == eventId).Select(x => x.UserId).ToList();
+                var existsParticipants = _dbContext.EventUsers.Where(x => participants.Contains(x.UserId) && x.EventId == eventId).Select(x => x.UserId).ToList();
                 _dbContext.EventUsers.AddRange(participants.Where(x => !existsParticipants.Contains(x)).Select(x => new EventUser
                 {
                     EventId = eventId,

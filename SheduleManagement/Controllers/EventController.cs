@@ -126,7 +126,7 @@ namespace SheduleManagement.Controllers
             }
         }
         [HttpPost("ReplyInvitation")]
-        public IActionResult ReplyInvitation(ReplyInvitationModel model)
+        public IActionResult ReplyInvitation([FromBody]ReplyInvitationModel model)
         {
             try
             {
